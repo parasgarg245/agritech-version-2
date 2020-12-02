@@ -3,6 +3,7 @@ const mongoose =require('mongoose')
 const ejs =require('ejs')
 const bodyParser = require("body-parser");
 const User = require('./models/user')
+const CompanyUser = require('./models/companyuser')
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
 const indexRoute = require('./routes/index')
@@ -30,9 +31,21 @@ app.use(require('express-session')({
 
 app.use(passport.initialize())
 app.use(passport.session())
-passport.use(new LocalStrategy(User.authenticate()))
-passport.serializeUser(User.serializeUser())
-passport.deserializeUser(User.deserializeUser())
+passport.use('bloglocal',new LocalStrategy(User.authenticate()))
+passport.use('companylocal', new LocalStrategy(CompanyUser.authenticate()))
+passport.serializeUser(function (user, done) {
+    done(null, user);
+});
+
+passport.deserializeUser(function (user, done) {
+    if (user != null)
+        done(null, user);
+});
+
+
+
+
+
 
 app.use((req, res, next) => {
     res.locals.currentUser = req.user
@@ -89,15 +102,7 @@ app.get('/', (req, res) => {
 
 })
 
-app.get('/schemes', (req, res) => {
-    Yojna_info.find((err, yojna) => {
-        if (err)
-            console.log(err)
-        else
-            res.render('scheme',{yojna:yojna})
-    })
 
-})
 
 app.get('/company', (req, res) => {
     Company_info.find((err, company) => {
@@ -109,6 +114,50 @@ app.get('/company', (req, res) => {
     })
 
 })
+app.get('/company/new', isLoggedIncompany, function (req, res) {
+    res.render('companynew')
+})
+
+
+app.post('/company',isLoggedIncompany,(req,res)=>{
+     var newproject = {
+         Address: req.body.Address,
+         CompanyType: req.body.CompanyType,
+         ContractType: req.body.ContractType,
+         Crop:req.body.Crop,
+         Name: req.body.Name,
+         Price:req.body.Price,
+         Cin:req.body.Cin,
+         email:req.body.email,
+         contactNo:req.body.phone,
+         img: req.body.img
+
+     }
+     
+     Company_info.create(newproject, function (err, newlyCreated) {
+         if (err)
+             console.log(err)
+         else
+             res.redirect('/company')
+
+     })
+
+})
+
+
+
+app.get('/schemes', (req, res) => {
+    Yojna_info.find((err, yojna) => {
+        if (err)
+            console.log(err)
+        else
+            res.render('scheme', {
+                yojna: yojna
+            })
+    })
+
+})
+
 app.post('/schemes', isLoggedIn,function (req, res) {
     var newblog = {
         Technology: req.body.Technology,
@@ -134,10 +183,21 @@ app.get('/schemes/new',isLoggedIn, function (req, res) {
 
 
 function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated())
+    if (req.isAuthenticated()){
+        console.log(req)
         return next()
+    }
     res.redirect('/login')
 }
 
+
+function isLoggedIncompany(req,res,next){
+    if(req.isAuthenticated()){
+        return next()
+    }
+    
+    res.redirect('/companylogin')
+
+}
 
 app.listen(3000, () => console.log('server started on port 3000'))
