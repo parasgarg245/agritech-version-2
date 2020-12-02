@@ -12,7 +12,7 @@
         
     <% for(let i=0 ;i< company.length ;i++){ %>
         <div class = "item-2" >
-            <a  class = "card" > 
+            <a href = 'mailto:<%= company[i].email %>' class = "card" > 
             <div class = "thumb" style = "background-image: url('<%= company[i].img %>'); " > </div> 
         
             <article >
@@ -27,6 +27,8 @@
             <p ><strong> CIN:</strong> <%= company[i].Cin %> </p>
              <p > <strong>Address:</strong><br><%= company[i].Address %> </p> 
             <p ><strong> Email:</strong><%= company[i].email %> </p>
+            <!-- <p ><strong> Email:</strong><a href="mailto:Test@gmail.com">click</a> </p> -->
+            
                 <p ><strong>Contact No.: </strong><%= company[i].contactNo %> </p>
           
             </article> 

@@ -3,6 +3,8 @@
 <head>
   <title>Scheme</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+ 
   <link rel="stylesheet" type="text/css" href="/css/scheme.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -23,22 +25,37 @@
   <div class="topnav" id="myTopnav">
     <h1>AGRI Tech</h1>
                
-      <%  if(!currentUser){ %>         
-         <a href="/login">LOGIN</a>
-         <a href="/register">SIGN UP</a>
-          <a href="/schemes" >SCHEMES</a>
+      <%  if(!currentUser){ %> 
+      <div class="dropdown">
+            <button class="dropbtn">LOGIN
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a href="/login">Login as Blogger</a>
+              <a href="/companylogin">Login as company</a>
+            </div>
+          </div>
+         
+          <div class="dropdown">
+            <button class="dropbtn">SIGN UP
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+              <a href="/register">SignUp as Blogger</a>
+              <a href="/companyregister">SignUp as company</a>
+            </div>
+          </div>
+           <a href="/schemes" >SCHEMES</a>
           <a href="/company" >COMPANY</a>
-          <a href="/companyregister" >COMPANY Register</a>
-          <a href="/companylogin" >COMPANY Login</a>
-          
-          
-        <a href="/">BLOGS</a>
+          <a href="/blog">BLOGS</a>
+          <a href="/">HOME</a>
+        
       <% }else{ %> 
         <a href="#"> Signed in As <%= currentUser.username %></a>
         <a href="/logout">Logout</a>
         <a href="/schemes" >SCHEMES</a>
-        <a href="/company" >COMPANY</a>
-        <a href="/">BLOGS</a>
+        <a href="/">HOME</a>
+        <a href="/blog">BLOGS</a>
       <% } %>
     <a href="javascript:void(0);" class="icon" onclick="myFunction()">
       <i class="fa fa-bars"></i>

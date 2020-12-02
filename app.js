@@ -89,10 +89,36 @@ const Blog_info = mongoose.model('Blog_info', blogSchema)
 const Company_info = mongoose.model('Company_info', companySchema)
 
 
+app.get('/',(req,res)=>{
+     Blog_info.find((err, blog) => {
+         if (err)
+             console.log(err)
+         else{
+             Yojna_info.find((err, yojna) => {
+                 if (err)
+                     console.log(err)
+                 else {
+                     Company_info.find((err, company) => {
+                         if (err)
+                             console.log(err)
+                         else
+                             res.render('index', {
+                                 company: company,
+                                 yojna: yojna,
+                                blog: blog
+                             })
+
+                     })
+                 }              
+             })
+         }
+            
+     })
+
+})
 
 
-
-app.get('/', (req, res) => {
+app.get('/blog', (req, res) => {
     Blog_info.find((err, blog) => {
         if (err)
             console.log(err)
@@ -158,7 +184,7 @@ app.get('/schemes', (req, res) => {
 
 })
 
-app.post('/schemes', isLoggedIn,function (req, res) {
+app.post('/blog', isLoggedIn,function (req, res) {
     var newblog = {
         Technology: req.body.Technology,
         Use: req.body.Use,
@@ -175,7 +201,7 @@ app.post('/schemes', isLoggedIn,function (req, res) {
 
 })
 
-app.get('/schemes/new',isLoggedIn, function (req, res) {
+app.get('/blog/new',isLoggedIn, function (req, res) {
     res.render('new')
 })
 
