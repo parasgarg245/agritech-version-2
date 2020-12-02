@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Scheme</title>
+  <title><%= title %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
  
@@ -53,9 +53,11 @@
       <% }else{ %> 
         <a href="#"> Signed in As <%= currentUser.username %></a>
         <a href="/logout">Logout</a>
+         <a href="/company" >COMPANY</a>
         <a href="/schemes" >SCHEMES</a>
-        <a href="/">HOME</a>
+        
         <a href="/blog">BLOGS</a>
+         <a href="/">HOME</a>
       <% } %>
     <a href="javascript:void(0);" class="icon" onclick="myFunction()">
       <i class="fa fa-bars"></i>

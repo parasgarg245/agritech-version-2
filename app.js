@@ -123,7 +123,7 @@ app.get('/blog', (req, res) => {
         if (err)
             console.log(err)
         else
-            res.render('blog',{blog:blog})
+            res.render('blog',{blog:blog,title:'Blog'})
     })
 
 })
@@ -135,13 +135,13 @@ app.get('/company', (req, res) => {
         if (err)
             console.log(err)
         else
-        res.render('company',{company:company})
+        res.render('company',{company:company,title:'Company'})
         
     })
 
 })
 app.get('/company/new', isLoggedIncompany, function (req, res) {
-    res.render('companynew')
+    res.render('companynew', {title:'New Project'})
 })
 
 
@@ -178,7 +178,8 @@ app.get('/schemes', (req, res) => {
             console.log(err)
         else
             res.render('scheme', {
-                yojna: yojna
+                yojna: yojna,
+                title: 'Scheme'
             })
     })
 
@@ -202,7 +203,7 @@ app.post('/blog', isLoggedIn,function (req, res) {
 })
 
 app.get('/blog/new',isLoggedIn, function (req, res) {
-    res.render('new')
+    res.render('new',{title : 'Compose Blog'})
 })
 
 
@@ -210,7 +211,7 @@ app.get('/blog/new',isLoggedIn, function (req, res) {
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()){
-        console.log(req)
+      
         return next()
     }
     res.redirect('/login')

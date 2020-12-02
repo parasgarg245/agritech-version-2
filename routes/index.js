@@ -4,7 +4,7 @@ const CompanyUser = require('../models/companyuser')
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
 route.get('/register', (req, res) => {
-    res.render('register')
+    res.render('register',{title: 'Register'})
 })
 
 route.post('/register', (req, res) => {
@@ -23,7 +23,7 @@ route.post('/register', (req, res) => {
 })
 
 route.get('/companyregister',(req,res)=>{
-    res.render('companyregister')
+    res.render('companyregister',{title: 'Company Register'})
 })
 
 route.post('/companyregister', (req, res) => {
@@ -43,7 +43,7 @@ route.post('/companyregister', (req, res) => {
 })
 
 route.get('/login', (req, res) => {
-    res.render('login')
+    res.render('login', {title: 'login'})
 })
 route.post('/login', passport.authenticate('bloglocal', {
     successRedirect: '/',
@@ -51,7 +51,7 @@ route.post('/login', passport.authenticate('bloglocal', {
 }), (req, res) => {console.log(req.body.id + req.body.email +req.body.password)})
 
 route.get('/companylogin', (req, res) => {
-    res.render('companylogin')
+    res.render('companylogin',{title: 'Company login'})
 })
 
 route.post('/companylogin', passport.authenticate('companylocal', {
