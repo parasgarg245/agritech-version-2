@@ -36,8 +36,7 @@ Secondly providing them ways to increase their production via Blogs and Govt. Sc
 <li>Go to localhost:3000 in your browser.</li>
 </ul>
 
-<h2> Deployed link</h2>
-<a href="https://intense-crag-74954.herokuapp.com/">Click here to visit website</a>
+
 
 
 <h2> Outcome:</h2>

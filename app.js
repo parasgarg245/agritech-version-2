@@ -2,7 +2,6 @@ const express= require('express')
 const mongoose =require('mongoose')
 const ejs =require('ejs')
 const bodyParser = require("body-parser");
-const User = require('./models/user')
 const CompanyUser = require('./models/companyuser')
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
@@ -31,7 +30,7 @@ app.use(require('express-session')({
 
 app.use(passport.initialize())
 app.use(passport.session())
-passport.use('bloglocal',new LocalStrategy(User.authenticate()))
+
 passport.use('companylocal', new LocalStrategy(CompanyUser.authenticate()))
 passport.serializeUser(function (user, done) {
     done(null, user);
@@ -185,7 +184,7 @@ app.get('/schemes', (req, res) => {
 
 })
 
-app.post('/blog', isLoggedIn,function (req, res) {
+app.post('/blog',function (req, res) {
     var newblog = {
         Technology: req.body.Technology,
         Use: req.body.Use,
@@ -202,20 +201,13 @@ app.post('/blog', isLoggedIn,function (req, res) {
 
 })
 
-app.get('/blog/new',isLoggedIn, function (req, res) {
+app.get('/blog/new', function (req, res) {
     res.render('new',{title : 'Compose Blog'})
 })
 
 
 
 
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()){
-      
-        return next()
-    }
-    res.redirect('/login')
-}
 
 
 function isLoggedIncompany(req,res,next){

@@ -1,5 +1,4 @@
 const route = require('express').Router()
-const User = require('../models/user')
 const CompanyUser = require('../models/companyuser')
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
@@ -42,13 +41,7 @@ route.post('/companyregister', (req, res) => {
     })
 })
 
-route.get('/login', (req, res) => {
-    res.render('login', {title: 'login'})
-})
-route.post('/login', passport.authenticate('bloglocal', {
-    successRedirect: '/',
-    failureRedirect: '/login'
-}), (req, res) => {console.log(req.body.id + req.body.email +req.body.password)})
+
 
 route.get('/companylogin', (req, res) => {
     res.render('companylogin',{title: 'Company login'})
